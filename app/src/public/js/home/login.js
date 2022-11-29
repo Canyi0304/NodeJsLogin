@@ -1,5 +1,6 @@
 "use strict";
 
+
 const id = document.querySelector("#id")
 const pw = document.querySelector("#pw")
 const loginBtn  = document.querySelector("button")
@@ -11,19 +12,21 @@ loginBtn.addEventListener("click", login);
 
 function login() {
     // console.log("login클릭")
-    const req  = { 
+    const request  = { 
         id : id.value,
         pw : pw.value,
     };
 
-    // console.log(req);
-    // console.log(JSON.stringify(req));
+    // console.log(request);
+    // console.log(JSON.stringify(request));
     fetch("/login",{
-        method : "post",
+        method : "POST",
         headers :{
             "Content-Type" : "application/json",
         },
-        body: JSON.stringify(req),
+        body: JSON.stringify(request),
     })
+      .then((response) => response.json())
+      .then((response) => console.log(response))
 }
 
