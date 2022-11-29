@@ -16,6 +16,14 @@ function login() {
         pw : pw.value,
     };
 
-    console.log(req);
+    // console.log(req);
+    // console.log(JSON.stringify(req));
+    fetch("/login",{
+        method : "post",
+        headers :{
+            "Content-Type" : "application/json",
+        },
+        body: JSON.stringify(req),
+    })
 }
 
