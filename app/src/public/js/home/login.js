@@ -27,6 +27,17 @@ function login() {
         body: JSON.stringify(request),
     })
       .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((response) => {
+        if(response.success){
+            location.href = "/"
+        }
+        else{
+            alert(response.msg);
+        }
+      }
+      )
+      .catch((err) =>{
+        console.error(new Error("로그인 중 에러 발생"))
+      });
 }
 
