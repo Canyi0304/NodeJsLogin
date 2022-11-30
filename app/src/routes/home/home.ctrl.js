@@ -1,5 +1,7 @@
 "use strict"; //이크마 스크립트
 
+const UserStorage = require("../../models/UserStorage")
+
 const output = {
     
     home: (request, response) => {
@@ -11,10 +13,7 @@ const output = {
     }
 }
 
-const users = {
-    id : ["canyi", "개발", "박팀장"],
-    pw : ["1234", "1234", "12345"],
-}
+
 
 const process = {
     login : (request,response) =>
@@ -22,21 +21,26 @@ const process = {
         const id = request.body.id;
         const pw = request.body.pw;
 
-        console.log(id, pw)
+        //const userStorage = new UserStorage();
+        //console.log(UserStorage.users);
+        // console.log(UserStorage.getUsers("id","pw","name"));
+        const users = UserStorage.getUsers("id","pw");
 
+        //console.log(id, pw)
+        const responseValue = {};
         if(users.id.includes(id)){
             const idx = users.id.indexOf(id);
             if (users.pw[idx] === pw) {
-                return response.json({
-                    success : true,
-                    msg: "로그인에 성공했습니다."
-                });
+                
+                responseValue.success = true;
+                return response.json(responseValue);
+
             }
         }
-        return response.json({
-            success : false,
-            msg : "로그인에 실패하였습니다."
-        });
+        
+        responseValue.success = false ;
+        responseValue.msg = "로그인에 실패하였습니다.";
+        return response.json(responseValue);
     }
     
 }
